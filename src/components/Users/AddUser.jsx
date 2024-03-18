@@ -1,9 +1,29 @@
-import Button from '../../UI/Button'
-import Card from '../../UI/Card'
+import { useRef, useState } from 'react'
+import Button from '../UI/Button'
+import Card from '../UI/Card'
 
 const AddUser = () => {
+  // const username = useRef()
+  // const age = useRef()
+  const [username, setUsername] = useState('')
+  const [age, setAge] = useState('')
+
   const handleSubmit = e => {
     e.preventDefault()
+    if (username.trim().length === 0 || age.trim().length === 0) {
+      return
+    }
+    if (+age < -1) return
+    setUsername('')
+    setAge('')
+  }
+
+  const handleUsername = e => {
+    setUsername(e.target.value)
+  }
+
+  const handleAge = e => {
+    setAge(e.target.value)
   }
 
   return (
@@ -24,6 +44,9 @@ const AddUser = () => {
               type='text'
               name='username'
               id='username'
+              // ref={username}
+              value={username}
+              onChange={handleUsername}
               placeholder='Put in your username'
               className='flex-1 p-4 pl-0 bg-transparent placeholder-purple-300  outline-none text-white overflow-ellipsis overflow-hidden'
             />
@@ -39,12 +62,18 @@ const AddUser = () => {
               type='number'
               name='age'
               id='age'
+              // ref={age}
+              value={age}
+              onChange={handleAge}
               placeholder='Put in age pseudonym'
               className='flex-1 p-4 pl-0 bg-transparent placeholder-purple-300 outline-none text-white overflow-ellipsis overflow-hidden'
             />
           </div>
         </div>
-        <Button className='bg-pink-400 block w-full rounded py-4 text-white font-bold shadow'>
+        <Button
+          className='bg-pink-400 block w-full rounded py-4 text-white font-bold shadow'
+          type='submit'
+        >
           Add User
         </Button>
       </form>
